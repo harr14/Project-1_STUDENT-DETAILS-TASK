@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        h1 {
+            color: purple;
+            text-align: center;
+        }
+
+        .form {
+            width: 350px;
+            margin: auto;
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        input, select {
+            padding: 7px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 7px 15px;
+            cursor: pointer;
+            background-color: cyan;
+            color: black;
+
+        }
+
+        table {
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        .delete {
+            background-color: red;
+            color: white;
+            border: none;
+        }
+
+        .error {
+            color: red;
+        }
+        
+
+    </style>
+</head>
+
+<body>
+
+    <h1>STUDENT DETAILS TASK</h1>
+
+    <div class="form">
+
+        <h2>STUDENT FORM</h2>
+
+        <label>Name:</label>
+        <input type="text" id="name">
+        <p id="nameError" class="error"></p>
+
+        <br>
+
+        <label>Age:</label>
+        <input type="number" id="age">
+        <p id="ageError" class="error"></p>
+
+        <br>
+
+        <label>Gender:</label>
+
+        <input type="radio" name="gender" value="Male"> Male
+
+        <input type="radio" name="gender" value="Female"> Female
+
+        <p id="genderError" class="error"></p>
+
+        <br>
+
+        <label>Course:</label>
+
+        <select id="course">
+            <option value="">Select Course</option>
+            <option value="Python">Python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+        </select>
+
+        <p id="courseError" class="error"></p>
+
+        <br>
+
+        <label>Email:</label>
+        <input type="email" id="email">
+
+        <p id="emailError" class="error"></p>
+
+        <br>
+
+        <button onclick="saveStudent()">Save</button>
+
+    </div>
+
+
+    <table>
+
+        <tr>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>COURSE</th>
+            <th>GENDER</th>
+            <th>EMAIL</th>
+            <th>ACTION</th>
+        </tr>
+
+        <tr>
+            <td>Harry</td>
+            <td>22</td>
+            <td>Python</td>
+            <td>Male</td>
+            <td>harry@gmail.com</td>
+            <td>
+                <button class="delete" onclick="deleteRow(this)">
+                    Delete
+                </button>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>David</td>
+            <td>23</td>
+            <td>JavaScript</td>
+            <td>Male</td>
+            <td>david@gmail.com</td>
+            <td>
+                <button class="delete" onclick="deleteRow(this)">
+                    Delete
+                </button>
+            </td>
+
+        </tr>
+
+        <tr>
+            <td>Kim</td>
+            <td>24</td>
+            <td>JavaScript</td>
+            <td>Male</td>
+            <td>Kim@gmail.com</td>
+            <td>
+                <button class="delete" onclick="deleteRow(this)">
+                    Delete
+                </button>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <script>
+
+        function saveStudent() {
+
+            let name = document.getElementById("name").value;
+            let age = document.getElementById("age").value;
+            let email = document.getElementById("email").value;
+            let course = document.getElementById("course").value;
+
+            let gender = document.querySelector(
+                'input[name="gender"]:checked'
+            );
+
+
+            if (name == "") {
+                document.getElementById("nameError").innerHTML =
+                    "Please enter name";
+                return;
+            }
+
+            if (age == "") {
+                document.getElementById("ageError").innerHTML =
+                    "Please enter age";
+                return;
+            }
+
+            if (gender == null) {
+                document.getElementById("genderError").innerHTML =
+                    "Please select gender";
+                return;
+            }
+
+            if (course == "") {
+                document.getElementById("courseError").innerHTML =
+                    "Please select course";
+                return;
+            }
+
+            if (email == "") {
+                document.getElementById("emailError").innerHTML =
+                    "Please enter email";
+                return;
+            }
+
+            let table = document.querySelector("table");
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML = name;
+            row.insertCell(1).innerHTML = age;
+            row.insertCell(2).innerHTML = course;
+            row.insertCell(3).innerHTML = gender.value;
+            row.insertCell(4).innerHTML = email;
+
+            row.insertCell(5).innerHTML = '<button class="delete" onclick="deleteRow(this)">Delete</button>';
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("course").value = "";
+
+            gender.checked = false;
+
+        }
+
+        function deleteRow(button) {
+
+            button.parentElement.parentElement.remove();
+
+        }
+
+    </script>
+
+</body>
+</html>
